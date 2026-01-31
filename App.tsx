@@ -11,6 +11,8 @@ import HomeScreen from './src/screens/HomeScreen';
 import BarbersScreen from './src/screens/BarbersScreen';
 import AppointmentsScreen from './src/screens/AppointmentsScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
+import BarberDetailScreen from './src/screens/BarberDetailScreen';
+import ChatScreen from './src/screens/ChatScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -28,6 +30,8 @@ function MainTabs() {
             iconName = focused ? 'cut' : 'cut-outline';
           } else if (route.name === 'Appointments') {
             iconName = focused ? 'calendar' : 'calendar-outline';
+          } else if (route.name === 'Chat') {
+            iconName = focused ? 'chatbubbles' : 'chatbubbles-outline';
           } else if (route.name === 'Profile') {
             iconName = focused ? 'person' : 'person-outline';
           } else {
@@ -44,6 +48,7 @@ function MainTabs() {
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Barbers" component={BarbersScreen} />
       <Tab.Screen name="Appointments" component={AppointmentsScreen} />
+      <Tab.Screen name="Chat" component={ChatScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   );
@@ -62,7 +67,10 @@ export default function App() {
             <Stack.Screen name="Register" component={RegisterScreen} />
           </>
         ) : (
-          <Stack.Screen name="Main" component={MainTabs} />
+          <>
+            <Stack.Screen name="Main" component={MainTabs} />
+            <Stack.Screen name="BarberDetail" component={BarberDetailScreen} initialParams={{ barberId: '' }} />
+          </>
         )}
       </Stack.Navigator>
     </NavigationContainer>

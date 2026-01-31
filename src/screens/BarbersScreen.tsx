@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import api from '../lib/api';
 
 interface Barber {
@@ -31,7 +32,7 @@ export default function BarbersScreen() {
   };
 
   const renderBarber = ({ item }: { item: Barber }) => (
-    <TouchableOpacity style={styles.barberCard}>
+    <TouchableOpacity style={styles.barberCard} onPress={() => navigation.navigate('BarberDetail' as never, { barberId: item._id } as never)}>
       <View style={styles.barberHeader}>
         <View style={styles.avatar}>
           <Text style={styles.avatarText}>{item.name.charAt(0)}</Text>
@@ -45,7 +46,7 @@ export default function BarbersScreen() {
           </View>
         </View>
       </View>
-      {item.skills.length > 0 && (
+      {(item.skills?.length ?? 0) > 0 && (
         <View style={styles.skillsContainer}>
           {item.skills.slice(0, 3).map((skill, idx) => (
             <View key={idx} style={styles.skillTag}>
